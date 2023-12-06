@@ -1,10 +1,10 @@
-import HiddenSearchBar from "./HiddenSearchBar";
+import Testimonials from "./Testimonials";
 import "./style.css";
 
 function App() {
   return (
     <>
-      <HiddenSearchBar />
+      <Testimonials />
     </>
   );
 }
