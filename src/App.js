@@ -1,10 +1,10 @@
-import Todo from "./Todo";
+import Main from "./Main";
 import "./style.css";
 
 function App() {
   return (
     <>
-      <Todo />
+      <Main />
     </>
   );
 }
