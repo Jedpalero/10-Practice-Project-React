@@ -1,10 +1,10 @@
-import ToggleButtonColor from "./ToggleButtonColor";
+import HiddenSearchBar from "./HiddenSearchBar";
 import "./style.css";
 
 function App() {
   return (
     <>
-      <ToggleButtonColor />
+      <HiddenSearchBar />
     </>
   );
 }
