@@ -1,10 +1,10 @@
-import Main from "./Main";
+import ToggleButtonColor from "./ToggleButtonColor";
 import "./style.css";
 
 function App() {
   return (
     <>
-      <Main />
+      <ToggleButtonColor />
     </>
   );
 }
