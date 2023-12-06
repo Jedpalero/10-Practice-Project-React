@@ -1,34 +1,53 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 const Main = () => {
-  const [items, setItems] = useState([]);
+  const [inputValue, setInputValue] = useState("");
 
-  useEffect(() => {
-    axios
-      .get("https://www.themealdb.com/api/json/v1/1/filter.php?c=Seafood")
-      .then((res) => {
-        console.log(res); // to see all the data in api;
-        setItems(res.data.meals);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  function display(value) {
+    setInputValue(inputValue + value);
+  }
 
-  const itemList = items.map(({ strMeal, strMealThumb, idMeal }) => {
-    return (
-      <section className="card" key={idMeal}>
-        <img src={strMealThumb} alt={strMeal} />
-        <section className="content">
-          <p>{strMeal}</p>
-          <p>#{idMeal}</p>
-        </section>
-      </section>
-    );
-  });
+  function calculate() {
+    // eslint-disable-next-line
+    let answers = eval(inputValue);
+    setInputValue(answers);
+  }
 
-  return <div className="items-container">{itemList}</div>;
+  function clear() {
+    setInputValue("");
+  }
+
+  return (
+    <div>
+      <form name="calc" className="calculator">
+        <input type="text" className="value" value={inputValue} />
+        <span className="num clear" onClick={() => clear()}>
+          C
+        </span>
+        <span onClick={() => display("/")}>/</span>
+        <span onClick={() => display("*")}>*</span>
+        <span onClick={() => display("7")}>7</span>
+        <span onClick={() => display("8")}>8</span>
+        <span onClick={() => display("9")}>9</span>
+        <span onClick={() => display("-")}>-</span>
+        <span onClick={() => display("4")}>4</span>
+        <span onClick={() => display("5")}>5</span>
+        <span onClick={() => display("6")}>6</span>
+        <span className="plus" onClick={() => display("+")}>
+          +
+        </span>
+        <span onClick={() => display("1")}>1</span>
+        <span onClick={() => display("2")}>2</span>
+        <span onClick={() => display("3")}>3</span>
+        <span onClick={() => display("0")}>0</span>
+        <span onClick={() => display("00")}>00</span>
+        <span onClick={() => display(".")}>.</span>
+        <span className="num equal" onClick={() => calculate()}>
+          =
+        </span>
+      </form>
+    </div>
+  );
 };
 
 export default Main;
