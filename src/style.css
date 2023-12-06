@@ -1,37 +1,120 @@
-* {
+/* * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
 
 body {
-  background: #000;
+  background: #f5f9eb;
   height: 100vh;
-  color: white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-.container .number {
-  font-size: 6rem;
+.container {
+  background: #fcfff3;
+  padding: 50px;
 }
 
-
-.btns-container {
-  width: 40rem;
-  display: flex;
-  justify-content: space-around;
-  margin-top: 5rem;
+input {
+  padding: 15px;
+  border: none;
+  outline: none;
+  background: #f5f9eb;
+  width: 300px;
+  margin-right: 10px;
 }
 
-.increment, .decrement {
-  padding: 10px 20px;
+button {
   border-radius: 100px;
-  font-size: 2rem;
-  color: gray;
-  background: #141517;
+  background: #454545;
+  padding: 5px;
+  border: none;
+  outline: none;
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;  
+}
+
+.todos-list {
+  margin-top: 3rem;
+}
+
+.todo {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f5f9eb;
+  padding: 7px 20px;
+  margin: 10px;
+  font-family: sans-serif;
+}
+
+.close {
+  padding: 5px 10px;
   cursor: pointer;
+} */
+
+.App {
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.Todo {
+  background-color: wheat;
+  text-align: center;
+  width: 50%;
+  padding: 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin: auto;
+}
+
+ul {
+  list-style-type: none;
+  padding: 10px;
+  margin: 0;
+}
+
+button {
+  width: 70px;
+  height: 35px;
+  background-color: sandybrown;
+  border: none;
+  font-size: 15px;
+  font-weight: 800;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.input {
+  border: none;
+  width: 340px;
+  height: 35px;
+  border-radius: 9px;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.Top {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+li {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  
+}
+
+li:before {
+  content: "*";
+  margin-right: 5px;
 }
