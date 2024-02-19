@@ -16,15 +16,15 @@ const Nav = ({ handleInputChange, query }) => {
         />
       </div>
       <div className="profile-container">
-        <a href="#">
+        <button>
           <FiHeart className="nav-icons" />
-        </a>
-        <a href="#">
+        </button>
+        <button>
           <AiOutlineShoppingCart className="nav-icons" />
-        </a>
-        <a href="#">
+        </button>
+        <button>
           <AiOutlineUserAdd className="nav-icons" />
-        </a>
+        </button>
       </div>
     </nav>
   );
