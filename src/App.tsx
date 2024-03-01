@@ -1,9 +1,9 @@
 import { SyntheticEvent, useState } from "react";
 import "./style.css";
-
-const apikey = "87dbea18364eec574cf1be21b531a4cd";
+import { apikey } from "./ApiKey";
 
 type Data = {
+  name: string;
   main: {
     humidity: number;
   };
@@ -27,7 +27,8 @@ function App() {
       if (response.ok) {
         const data = await response.json();
         setWeatherData(data);
-        // console.log(data);
+        console.log(data);
+        setInput("");
       } else {
         console.error("Error fetching weather data");
       }
@@ -37,19 +38,26 @@ function App() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className="flex flex-col items-center justify-center p-10 mt-10 container border mx-auto space-y-10 shadow-lg">
+      <h1>WEATHER APP</h1>
+      <form onSubmit={handleSubmit} className="">
         <input
+          id="weather"
+          className=""
           type="text"
           onChange={(e) => setInput(e.target.value)}
           value={input}
+          placeholder="Enter City"
           autoComplete="on"
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="border">
+          Search
+        </button>
       </form>
       <div>
         {weatherData && (
           <>
+            <h1>{weatherData.name}</h1>
             {weatherData.main.humidity}
 
             <img
