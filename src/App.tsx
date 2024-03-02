@@ -1,25 +1,22 @@
-import { SyntheticEvent, useState } from "react";
 import "./style.css";
+import { SyntheticEvent, useState } from "react";
 import { apikey } from "./ApiKey";
+import WeatherData from "./components/WeatherData";
+import Loader from "./components/Loader";
 
-type Data = {
-  name: string;
-  main: {
-    humidity: number;
-  };
-  weather: {
-    description: string;
-    icon: string;
-  }[];
-};
+// const imageL = require("./weather/2687446_9267.png");
+
+const itemAlign = "flex flex-col items-center p-8 space-y-10";
 
 function App() {
   const [input, setInput] = useState("");
-  const [weatherData, setWeatherData] = useState<Data | null>(null);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [weatherData, setWeatherData] = useState(null);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${input}&appid=${apikey}&units=metric`
@@ -29,45 +26,65 @@ function App() {
         setWeatherData(data);
         console.log(data);
         setInput("");
+        setError("");
+        setIsLoading(false);
       } else {
-        console.error("Error fetching weather data");
+        // console.error("Error fetching weather data");
+        setError("Error fetching weather data");
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err: any) {
+      console.log(err);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-10 mt-10 container border mx-auto space-y-10 shadow-lg">
-      <h1>WEATHER APP</h1>
-      <form onSubmit={handleSubmit} className="">
+    <div
+      className={`m-auto mt-10 shadow-lg border w-[30rem] ${itemAlign} bg-gradient-to-b from-indigo-500`}
+    >
+      {/* <img src={imageL} alt="icon" className="w-full object-cover opacity-20" /> */}
+      <form onSubmit={handleSubmit}>
         <input
           id="weather"
-          className=""
+          className="pl-7 pr-7 p-3 rounded-l-full outline-none"
           type="text"
           onChange={(e) => setInput(e.target.value)}
           value={input}
           placeholder="Enter City"
           autoComplete="on"
         />
-        <button type="submit" className="border">
+        <button
+          type="submit"
+          className="pl-7 pr-7 p-3 rounded-r-full bg-blue-700 text-white hover:bg-blue-800 transition-colors ease-in-out"
+        >
           Search
         </button>
       </form>
       <div>
-        {weatherData && (
-          <>
-            <h1>{weatherData.name}</h1>
-            {weatherData.main.humidity}
-
+        {weatherData ? (
+          <WeatherData weatherData={weatherData} />
+        ) : (
+          <div className={`${itemAlign} font-bold text-3xl`}>
+            <h1>WEATHER APP</h1>
+            {/* <img
+              src={imageL}
+              alt="icon"
+              className="size-[25rem] object-cover opacity-20"
+            /> */}
             <img
-              src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`}
-              alt="weather-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Circle-icons-weather.svg"
+              alt="icon"
+              className="size-[8rem]"
             />
-            <h1>{weatherData.weather[0].description}</h1>
+          </div>
+        )}
+        {error && (
+          <>
+            <h1>Something went wrong! Please try again...</h1>
           </>
         )}
       </div>
+      {isLoading && <Loader />}
     </div>
   );
 }
