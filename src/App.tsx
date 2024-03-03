@@ -3,8 +3,10 @@ import { SyntheticEvent, useState } from "react";
 import { apikey } from "./ApiKey";
 import WeatherData from "./components/WeatherData";
 import Loader from "./components/Loader";
+import AnimatedText from "./framer/AnimatedText";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
-// const imageL = require("./weather/2687446_9267.png");
+const imageL = require("./image/2687446_9267.png");
 
 const itemAlign = "flex flex-col items-center p-8 space-y-10";
 
@@ -24,12 +26,10 @@ function App() {
       if (response.ok) {
         const data = await response.json();
         setWeatherData(data);
-        console.log(data);
         setInput("");
         setError("");
         setIsLoading(false);
       } else {
-        // console.error("Error fetching weather data");
         setError("Error fetching weather data");
         setIsLoading(false);
       }
@@ -40,13 +40,12 @@ function App() {
 
   return (
     <div
-      className={`m-auto mt-10 shadow-lg border w-[30rem] ${itemAlign} bg-gradient-to-b from-indigo-500`}
+      className={`m-auto mt-10 shadow-lg border w-[30rem] bg-slate-300 rounded-md ${itemAlign}`}
     >
-      {/* <img src={imageL} alt="icon" className="w-full object-cover opacity-20" /> */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="flex gap-3">
         <input
           id="weather"
-          className="pl-7 pr-7 p-3 rounded-l-full outline-none"
+          className="pl-7 pr-7 p-2 outline-none rounded-lg bg-blue-300 bg-opacity-15"
           type="text"
           onChange={(e) => setInput(e.target.value)}
           value={input}
@@ -55,36 +54,36 @@ function App() {
         />
         <button
           type="submit"
-          className="pl-7 pr-7 p-3 rounded-r-full bg-blue-700 text-white hover:bg-blue-800 transition-colors ease-in-out"
-        >
-          Search
-        </button>
+          className="p-6 rounded-full bg-blue-300 relative animate-ping z-10"
+        ></button>
+        <FaMagnifyingGlass className="text-black absolute ml-[16.8rem] mt-4" />
       </form>
       <div>
-        {weatherData ? (
-          <WeatherData weatherData={weatherData} />
-        ) : (
-          <div className={`${itemAlign} font-bold text-3xl`}>
-            <h1>WEATHER APP</h1>
-            {/* <img
-              src={imageL}
-              alt="icon"
-              className="size-[25rem] object-cover opacity-20"
-            /> */}
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Circle-icons-weather.svg"
-              alt="icon"
-              className="size-[8rem]"
-            />
-          </div>
-        )}
-        {error && (
+        {isLoading ? (
           <>
-            <h1>Something went wrong! Please try again...</h1>
+            <Loader />
+          </>
+        ) : (
+          <>
+            {weatherData ? (
+              <WeatherData weatherData={weatherData} loading={isLoading} />
+            ) : (
+              <div className={`${itemAlign} font-bold text-3xl`}>
+                <AnimatedText
+                  text="Weather App"
+                  className="text-[40px] text-blue-400 drop-shadow-md"
+                />
+                <img
+                  src={imageL}
+                  alt="icon"
+                  className="w-full object-cover opacity-20"
+                />
+              </div>
+            )}
           </>
         )}
       </div>
-      {isLoading && <Loader />}
+      {error && <h1 className="text-center text-red-600">{error}</h1>}
     </div>
   );
 }
