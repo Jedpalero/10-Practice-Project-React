@@ -7,12 +7,6 @@ const Main = () => {
     setInputValue(inputValue + value);
   }
 
-  // function calculate() {
-  //   // eslint-disable-next-line
-  //   let answers = eval(inputValue);
-  //   setInputValue(answers);
-  // }
-
   function calculate() {
     // eslint-disable-next-line
     let answers = Function("return " + inputValue)();
