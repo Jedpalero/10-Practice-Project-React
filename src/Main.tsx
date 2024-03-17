@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Main = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState<string>("");
 
-  function display(value) {
+  function display(value: string) {
     setInputValue(inputValue + value);
   }
 
+  // function calculate() {
+  //   // eslint-disable-next-line
+  //   let answers = eval(inputValue);
+  //   setInputValue(answers);
+  // }
+
   function calculate() {
     // eslint-disable-next-line
-    let answers = eval(inputValue);
+    let answers = Function("return " + inputValue)();
     setInputValue(answers);
   }
 
